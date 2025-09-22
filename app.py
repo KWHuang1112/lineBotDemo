@@ -15,7 +15,8 @@ if LINE_CHANNEL_ACCESS_TOKEN is None or LINE_CHANNEL_SECRET is None:
     exit(1)
 
 # 初始化 LineBotApi 和 WebhookHandler
-line_bot_api = LineBotApi(
+line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
+handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
 # 載入 FAQ JSON
 with open("faq.json", "r", encoding="utf-8") as f:
@@ -57,6 +58,7 @@ def handle_message(event):
 if __name__ == "__main__":
 #    app.run(port=5000, debug=True)
     app.run(host="0.0.0.0",port=int(os.getenv("PORT","5000")))
+
 
 
 
