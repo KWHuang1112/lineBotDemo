@@ -9,8 +9,7 @@ app = Flask(__name__)
 # 你的 Line Bot 設定
 line_bot_api = os.getenv("LINE_CHANNEL_ACCESS_TOKEN") # YOUR_CHANNEL_ACCESS_TOKEN
 handler = os.getenv("LINE_CHANNEL_SECRET") # YOUR_CHANNEL_SECRET
-line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
-handler = WebhookHandler(LINE_CHANNEL_SECRET)
+
 # 載入 FAQ JSON
 with open("faq.json", "r", encoding="utf-8") as f:
     FAQ = json.load(f)
@@ -51,6 +50,7 @@ def handle_message(event):
 if __name__ == "__main__":
 #    app.run(port=5000, debug=True)
     app.run(host="0.0.0.0",port=int(os.getenv("PORT","5000", debug=True)))
+
 
 
 
