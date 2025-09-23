@@ -16,8 +16,18 @@ except Exception:
     HAS_RAPIDFUZZ = False
 
 app = Flask(__name__)
-line_bot_api = LineBotApi("YOUR_CHANNEL_ACCESS_TOKEN")
-handler = WebhookHandler("YOUR_CHANNEL_SECRET")
+
+# 從環境變數讀取
+LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN")
+LINE_CHANNEL_SECRET = os.getenv("LINE_CHANNEL_SECRET")
+
+if LINE_CHANNEL_ACCESS_TOKEN is None or LINE_CHANNEL_SECRET is None:
+    print("❌ 請確認 Render 上有設定環境變數")
+    exit(1)
+
+# 初始化 LineBotApi 和 WebhookHandler
+line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
+handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
 # 載入 FAQ
 with open("faq.json", "r", encoding="utf-8") as f:
@@ -117,3 +127,4 @@ def handle_message(event):
 
 if __name__ == "__main__":
     app.run(port=5000, debug=True)
+
